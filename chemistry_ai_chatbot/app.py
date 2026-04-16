@@ -25,8 +25,8 @@ def home():
 
 @app.route("/chat", methods=["POST"])
 def chat():
-     return jsonify({"reply": "TEST OK"})
-    
+    user_message = request.json.get("message")
+
     response = client.chat.completions.create(
         model="gpt-4.1-mini",
         messages=[
@@ -38,6 +38,3 @@ def chat():
     reply = response.choices[0].message.content
 
     return jsonify({"reply": reply})
-
-if __name__ == "__main__":
-    app.run(debug=True)
