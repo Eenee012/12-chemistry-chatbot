@@ -26,6 +26,7 @@ def home():
 @app.route("/chat", methods=["POST"])
 def chat():
      return jsonify({"reply": "TEST OK"})
+    
     response = client.chat.completions.create(
         model="gpt-4.1-mini",
         messages=[
