@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<title>Chemistry AI Chatbot</title>
+<style>
+body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    font-family: Arial;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.chat-container {
+    width: 400px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+#chat {
+    height: 300px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+input {
+    width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+}
+
+button {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background: #00c6ff;
+    color: white;
+}
+</style>
+</head>
+<body>
+
+<div class="chat-container">
+    <h2>🧪 Chemistry AI</h2>
+    <div id="chat"></div>
+    <input id="msg" placeholder="Асуултаа бич..." />
+    <button onclick="send()">Илгээх</button>
+</div>
+
+<script>
+async function send() {
+    let msg = document.getElementById("msg").value;
+
+    document.getElementById("chat").innerHTML += `<p>👨‍🎓 ${msg}</p>`;
+
+    let res = await fetch("/chat", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({message: msg})
+    });
+
+    let data = await res.json();
+
+    document.getElementById("chat").innerHTML += `<p>🤖 ${data.reply}</p>`;
+}
+</script>
+
+</body>
+</html>
